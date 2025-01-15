@@ -118,6 +118,10 @@ function drawSoundWaves() {
     });
 }
 
+// Declaramos el sonido de escritura a nivel global
+let typingSound = new Audio('typing-sound.mp3');  // Asegúrate de que la ruta del archivo de sonido sea correcta
+typingSound.loop = false; // No necesitamos loop, se sincroniza con el tiempo
+
 function openModal() {
     const modalContent = document.querySelector(".modal-content");
     const modal = document.getElementById("myModal");
@@ -128,7 +132,7 @@ function openModal() {
             content = `
                 <h2>Constelación 1: Orión</h2>
                 <p id="typingEffect">¡Bienvenido a la famosa constelación de Orión! Aquí está el contenido de tu constelación 1.</p>
-                <video controls>
+                <video id="videoOrion" controls>
                     <source src="video/orion1.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
                 </video>
@@ -138,7 +142,7 @@ function openModal() {
             content = `
                 <h2>Constelación 2: Escorpión</h2>
                 <p id="typingEffect">Explora la constelación de Escorpión, una de las más conocidas por su forma de "W".</p>
-                <video controls>
+                <video id="videoEscorpion" controls>
                     <source src="video/cap2.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
                 </video>
@@ -148,7 +152,7 @@ function openModal() {
             content = `
                 <h2>Constelación 3: Ursa Mayor</h2>
                 <p id="typingEffect">La famosa Ursa Mayor, un punto de referencia en el cielo para muchos observadores.</p>
-                <video controls>
+                <video id="videoUrsa" controls>
                     <source src="video/cap3.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
                 </video>
@@ -160,6 +164,14 @@ function openModal() {
 
     modalContent.innerHTML = content;
     modal.style.display = "block";
+
+    // Reproducir el video automáticamente al abrir el modal
+    const video = modal.querySelector("video");
+    if (video) {
+        video.play().catch(error => {
+            console.log("Error al intentar reproducir el video:", error);
+        });
+    }
 
     // Aplica el efecto de escritura al párrafo con ID "typingEffect"
     const textToType = document.getElementById("typingEffect").innerText;
@@ -177,10 +189,6 @@ function typeEffect(elementId, text, speed = 100) {
     cursor.id = 'cursor';
     cursor.innerText = '|';
     element.appendChild(cursor);
-
-    // Cargar el sonido de la escritura
-    const typingSound = new Audio('typing-sound.mp3');  // Asegúrate de que la ruta del archivo de sonido sea correcta
-    typingSound.loop = false; // No necesitamos loop, se sincroniza con el tiempo
 
     // Calcular el tiempo total de escritura basado en el texto y la velocidad
     const totalTime = text.length * speed; // Tiempo total de escritura (en milisegundos)
@@ -207,18 +215,42 @@ function typeEffect(elementId, text, speed = 100) {
     typeCharacter();
 }
 
-
-// Cerrar el modal
-closeModalButton.onclick = function() {
+// Cerrar el modal y detener sonidos al cerrarlo
+function closeModal() {
+    const modal = document.getElementById("myModal");
     modal.style.display = "none";
-};
-
-// Cerrar el modal si el usuario hace clic fuera del contenido del modal
-window.onclick = function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
+    
+    // Detener el sonido de escritura si está en reproducción
+    if (typingSound) {
+        typingSound.pause();
+        typingSound.currentTime = 0; // Resetea el tiempo de reproducción
     }
-};
+
+    // Detener cualquier video en el modal
+    const video = modal.querySelector("video");
+    if (video) {
+        video.pause();  // Detener el video cuando se cierra el modal
+        video.currentTime = 0;  // Resetea el tiempo de reproducción del video
+    }
+}
+
+// Evento para cerrar el modal cuando se hace clic en el botón de cerrar
+document.addEventListener('DOMContentLoaded', () => {
+    const closeModalButton = document.getElementById('closeModal');
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', closeModal);
+    }
+
+    // Evento para cerrar el modal al hacer clic fuera de él
+    window.onclick = function(event) {
+        const modal = document.getElementById("myModal");
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+});
+
+
 
 // Dibujar estrellas
 function drawStars() {
@@ -296,7 +328,39 @@ canvas.addEventListener('click', () => {
     checkClick();
 });
 
+
+//tituloooooo
+window.onload = function() {
+    const title = document.getElementById('title');
+    const text = title.innerText;
+    title.innerHTML = '';  // Limpiar el contenido del título
+
+    // Dividir el texto en letras y envolver cada una en un <span>
+    for (let i = 0; i < text.length; i++) {
+        const letter = document.createElement('span');
+        letter.innerText = text[i];
+        title.appendChild(letter);
+    }
+
+    const letters = title.querySelectorAll('span');
+
+    // Función para aplicar un efecto de animación (sin distorsión)
+    function applyAnimation() {
+        letters.forEach(letter => {
+            letter.style.transition = 'all 0.5s ease-in-out'; // Suaviza la animación
+        });
+    }
+
+    // Llamar a la animación en un intervalo
+    setInterval(applyAnimation, 500);  // Ajusta el tiempo de intervalo si es necesario
+};
+
+
+
+
 // Inicialización
 createStars();
 createConstellations();
 animate();
+
+
