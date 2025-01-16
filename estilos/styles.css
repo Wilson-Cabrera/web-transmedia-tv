@@ -58,10 +58,18 @@ body {
 
 .modal-content {
     position: relative;
-    width: 80%; /* Ajusta el tamaño al 80% del ancho de la ventana */
+    width: 50%; /* Ajusta el tamaño al 80% del ancho de la ventana */
     max-width: 800px; /* Tamaño máximo */
     margin: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    /*background: radial-gradient(circle, rgba(0, 0, 30, 1) 0%, rgba(20, 0, 50, 0.9) 50%, rgba(0, 0, 0, 1) 100%);*/
+    /*background: linear-gradient(to bottom, #1a0033, #000000);
+background-image: url('https://www.transparenttextures.com/patterns/noisy.png');
+background-blend-mode: multiply;*/
+background: url('https://img.freepik.com/foto-gratis/fondo-textura-hormigon-vineta-amarillo-pastel_53876-124561.jpg') no-repeat center center / cover;
+
+
+
     /*backdrop-filter: blur(5px);*/
     padding: 20px;
     border-radius: 10px;
@@ -158,3 +166,133 @@ h2#subtitle {
         0 0 10px rgba(255, 255, 255, 0.8), 
         0 0 15px rgba(255, 255, 255, 0.6); /* Resplandor sutil en blanco */
 }
+
+
+.titulomodal {
+    color: #000;
+    font-size: 0.7rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+.constelacionestitulos {
+    color: #994955;
+    font-family: 'Jersey 15', sans-serif;
+}
+
+video {
+    display: none; /* Inicialmente el video está oculto */
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Transición suave */
+}
+
+
+/*footer*/
+
+/* Estilos para el footer */
+.footer {
+    background-color: rgba(44, 62, 80, 0); /* Fondo semi-transparente */
+    color: #ECF0F1;
+    padding: 15px 5%; /* Reducido para hacerlo más fino */
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    position: fixed; /* Fijar el footer en la parte inferior */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que el footer quede encima de otros elementos */
+    font-size: 10px; /* Tamaño de fuente más pequeño para hacerlo más fino */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Asegurar que todo el contenido esté alineado correctamente */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%; /* Asegura que los elementos ocupen todo el ancho disponible */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+.footer-left p, .footer-right p {
+    margin: 0;
+    font-size: 12px; /* Reducir el tamaño del texto */
+}
+
+/* Ajustes para los iconos sociales */
+.social-links {
+    margin-top: 10px;
+}
+
+.social-icon {
+    color: #ECF0F1;
+    text-decoration: none;
+    margin: 0 8px; /* Reducir margen entre iconos */
+    font-size: 14px; /* Tamaño de los iconos más pequeño */
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #3498DB; /* Color al pasar el mouse */
+}
+
+/* Parte inferior con el texto "Creado por" */
+.footer-bottom {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 10px; /* Más pequeño aún para la parte inferior */
+    border-top: 1px solid #7F8C8D;
+    padding-top: 5px;
+    display: flex;
+    justify-content: center; /* Centrar el texto */
+}
+
+/* Asegurar que el texto "Creado por" no se desplace */
+.footer-bottom p {
+    margin: 0;
+    font-size: 12px; /* Ajuste de tamaño para "Creado por" */
+    color: #ECF0F1;
+    text-align: center; /* Asegura que el texto esté centrado */
+}
+
+/* Efecto de desvanecimiento en el fondo */
+.footer {
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Efecto de desvanecimiento en el fondo */
+#title {
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+#subtitle {
+    animation: fadeIn 2s ease-in;
+    padding: 20px;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+

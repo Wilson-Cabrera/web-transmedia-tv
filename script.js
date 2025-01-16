@@ -119,8 +119,8 @@ function drawSoundWaves() {
 }
 
 // Declaramos el sonido de escritura a nivel global
-let typingSound = new Audio('typing-sound.mp3');  // Asegúrate de que la ruta del archivo de sonido sea correcta
-typingSound.loop = false; // No necesitamos loop, se sincroniza con el tiempo
+let typingSound = new Audio('typing-sound.mp3'); // Asegúrate de que la ruta del archivo de sonido sea correcta
+typingSound.loop = true; // Configuramos el sonido en bucle
 
 function openModal() {
     const modalContent = document.querySelector(".modal-content");
@@ -130,8 +130,10 @@ function openModal() {
     switch (clickedConstellation) {
         case 0:
             content = `
-                <h2>Constelación 1: Orión</h2>
-                <p id="typingEffect">¡Bienvenido a la famosa constelación de Orión! Aquí está el contenido de tu constelación 1.</p>
+                <h2 class="constelacionestitulos">Orión</h2>
+                <p id="typingEffect" class="titulomodal">Las estrellas se despliegan en un patrón que parece desafiar el azar, como si cada destello fuera una pieza de un rompecabezas cósmico que nadie se atreve a resolver. Es un juego inquietante, una danza silenciosa que insinúa un mensaje oculto, condenado a permanecer entre líneas invisibles. Cada luz parpadeante emite un eco, un susurro perdido en el vacío del universo, cargado de promesas rotas y advertencias que nunca llegan a tiempo.
+
+Hay algo perturbador en la manera en que estas luces se alinean, algo que no puedes ignorar aunque lo intentes. Es como si estuvieran ahí para vigilar, para observar desde una distancia segura, mientras tú intentas encontrar sentido en un mapa que parece diseñado para confundirte. No es solo el vacío lo que te rodea; es la sensación de que algo o alguien te está dejando señales, como migajas en un sendero oscuro.</p>
                 <video id="videoOrion" controls>
                     <source src="video/orion1.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
@@ -140,10 +142,10 @@ function openModal() {
             break;
         case 1:
             content = `
-                <h2>Constelación 2: Escorpión</h2>
-                <p id="typingEffect">Explora la constelación de Escorpión, una de las más conocidas por su forma de "W".</p>
+                <h2 class="constelacionestitulos">Constelación 2: Escorpión</h2>
+                <p id="typingEffect" class="titulomodal">Explora la constelación de Escorpión, una de las más conocidas...</p>
                 <video id="videoEscorpion" controls>
-                    <source src="video/cap2.mp4" type="video/mp4">
+                    <source src="video/orion1.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
                 </video>
             `;
@@ -151,7 +153,7 @@ function openModal() {
         case 2:
             content = `
                 <h2>Constelación 3: Ursa Mayor</h2>
-                <p id="typingEffect">La famosa Ursa Mayor, un punto de referencia en el cielo para muchos observadores.</p>
+                <p id="typingEffect">La famosa Ursa Mayor, un punto de referencia en el cielo...</p>
                 <video id="videoUrsa" controls>
                     <source src="video/cap3.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
@@ -165,50 +167,39 @@ function openModal() {
     modalContent.innerHTML = content;
     modal.style.display = "block";
 
-    // Reproducir el video automáticamente al abrir el modal
-    const video = modal.querySelector("video");
-    if (video) {
-        video.play().catch(error => {
-            console.log("Error al intentar reproducir el video:", error);
-        });
-    }
-
     // Aplica el efecto de escritura al párrafo con ID "typingEffect"
     const textToType = document.getElementById("typingEffect").innerText;
     typeEffect("typingEffect", textToType);
 }
 
-// Función para el efecto de escritura con sonido sincronizado
 function typeEffect(elementId, text, speed = 100) {
     const element = document.getElementById(elementId);
     element.innerHTML = ""; // Limpia el contenido previo
     let i = 0;
 
-    // Agrega el cursor parpadeante
-    const cursor = document.createElement('span');
-    cursor.id = 'cursor';
-    cursor.innerText = '|';
-    element.appendChild(cursor);
-
-    // Calcular el tiempo total de escritura basado en el texto y la velocidad
-    const totalTime = text.length * speed; // Tiempo total de escritura (en milisegundos)
-    
-    // Reproducir el sonido solo por el tiempo que dure la escritura
-    typingSound.play();
-    setTimeout(() => {
-        typingSound.pause();  // Detener el sonido al final de la escritura
-        typingSound.currentTime = 0;  // Resetea el tiempo de reproducción
-    }, totalTime); // El sonido dura el mismo tiempo que tarda en escribirse el texto
+    // Reproducir el sonido en bucle
+    typingSound.currentTime = 0;
+    typingSound.play().catch(err => console.error("Error al reproducir el sonido:", err));
 
     // Función para escribir un carácter
     function typeCharacter() {
         if (i < text.length) {
-            element.innerHTML = text.slice(0, i) + "<span id='cursor'>|</span>"; // Escribe el texto con el cursor
+            element.innerHTML += text[i];
             i++;
             setTimeout(typeCharacter, speed);
         } else {
-            // Cuando se termine de escribir, eliminamos el cursor
-            document.getElementById("cursor").style.display = "none";
+            // Detener el sonido al finalizar la escritura
+            typingSound.pause();
+            typingSound.currentTime = 0; // Resetea el tiempo de reproducción
+
+            // Mostrar el video con transición suave
+            const video = document.querySelector("video");
+            if (video) {
+                video.style.display = "block"; // Aseguramos que el video se muestre
+                setTimeout(() => {
+                    video.style.opacity = 1; // Cambiar la opacidad para un efecto de desvanecimiento
+                }, 50); // Esperar un poco para que la transición comience suavemente
+            }
         }
     }
 
@@ -219,7 +210,7 @@ function typeEffect(elementId, text, speed = 100) {
 function closeModal() {
     const modal = document.getElementById("myModal");
     modal.style.display = "none";
-    
+
     // Detener el sonido de escritura si está en reproducción
     if (typingSound) {
         typingSound.pause();
@@ -229,8 +220,8 @@ function closeModal() {
     // Detener cualquier video en el modal
     const video = modal.querySelector("video");
     if (video) {
-        video.pause();  // Detener el video cuando se cierra el modal
-        video.currentTime = 0;  // Resetea el tiempo de reproducción del video
+        video.pause(); // Detener el video cuando se cierra el modal
+        video.currentTime = 0; // Resetea el tiempo de reproducción del video
     }
 }
 
@@ -354,6 +345,8 @@ window.onload = function() {
     // Llamar a la animación en un intervalo
     setInterval(applyAnimation, 500);  // Ajusta el tiempo de intervalo si es necesario
 };
+
+
 
 
 
