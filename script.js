@@ -135,30 +135,42 @@ function openModal() {
 
 Hay algo perturbador en la manera en que estas luces se alinean, algo que no puedes ignorar aunque lo intentes. Es como si estuvieran ahí para vigilar, para observar desde una distancia segura, mientras tú intentas encontrar sentido en un mapa que parece diseñado para confundirte. No es solo el vacío lo que te rodea; es la sensación de que algo o alguien te está dejando señales, como migajas en un sendero oscuro.</p>
                 <video id="videoOrion" controls>
-                    <source src="video/orion1.mp4" type="video/mp4">
+                    <source src="video/orion.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
                 </video>
             `;
             break;
         case 1:
             content = `
-                <h2 class="constelacionestitulos">Constelación 2: Escorpión</h2>
-                <p id="typingEffect" class="titulomodal">Explora la constelación de Escorpión, una de las más conocidas...</p>
+                <h2 class="constelacionestitulos">Escorpión</h2>
+                <p id="typingEffect" class="titulomodal">En lo profundo de la bóveda celeste, un vacío toma forma, no como ausencia, sino como un poder antiguo y opresivo. Su sombra, distante pero inminente, parece extenderse como una mano invisible que amenaza con aplastar todo a su paso. No hay luz en él, solo la promesa de lo que se oculta en sus profundidades. Algo primordial, un silencio denso que se siente en la piel, una tensión que se escurre por las venas. No es solo un espacio vacío, es un eco lejano de traición y sombra, un testigo mudo de secretos que no deben salir a la luz.  
+
+Este vacío no es un accidente; parece diseñado, una ausencia que ha sido tejida cuidadosamente, como si fuera una trampa, esperando que alguien se acerque. Y mientras lo miras, sientes que no solo está ahí para ser observado, sino para observarte. Algo acecha en las sombras, algo que desafía la comprensión, y susurran en susurros profundos que quizás ya sea demasiado tarde para escapar de lo que se desata bajo su influencia. La sensación de estar atrapado en un juego de ajedrez cósmico se apodera de ti, donde las piezas se mueven, pero no siempre hacia donde tú decides.</p>
                 <video id="videoEscorpion" controls>
-                    <source src="video/orion1.mp4" type="video/mp4">
+                    <source src="video/escorpion.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
                 </video>
             `;
             break;
         case 2:
             content = `
-                <h2>Constelación 3: Ursa Mayor</h2>
-                <p id="typingEffect">La famosa Ursa Mayor, un punto de referencia en el cielo...</p>
+                <h2 class="constelacionestitulos">Leo</h2>
+                <p id="typingEffect" class="titulomodal">La famosa Ursa Mayor, un punto de referencia en el cielo...</p>
                 <video id="videoUrsa" controls>
                     <source src="video/cap3.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
                 </video>
             `;
+            break;
+            case 3:
+                content = `
+                    <h2 class="constelacionestitulos">Andrómeda</h2>
+                    <p id="typingEffect" class="titulomodal">aca va el texto de andromeda</p>
+                    <video id="videoUrsa" controls>
+                        <source src="video/cap3.mp4" type="video/mp4">
+                        Tu navegador no soporta el formato de video.
+                    </video>
+                `;
             break;
         default:
             content = `<p id="typingEffect">Esta es una constelación misteriosa sin nombre.</p>`;
