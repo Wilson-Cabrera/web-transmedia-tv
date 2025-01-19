@@ -360,6 +360,66 @@ window.onload = function() {
 
 
 
+
+
+
+
+
+// Array para manejar la carga de imágenes
+const imagesToLoad = [];
+let imagesLoaded = 0;
+
+// Agrega las imágenes al array y configura eventos de carga
+function preloadImages() {
+    const imagesPaths = [
+        'images/constellation1.png',
+        'images/constellation2.png',
+        'images/constellation3.png',
+        // Agrega todas las rutas de las imágenes aquí
+    ];
+
+    imagesPaths.forEach((path) => {
+        const img = new Image();
+        img.src = path;
+
+        // Cuando una imagen se carga, aumenta el contador
+        img.onload = () => {
+            imagesLoaded++;
+            checkAllImagesLoaded();
+        };
+
+        // Manejo de error (por si alguna imagen no carga)
+        img.onerror = () => {
+            console.error(`No se pudo cargar la imagen: ${path}`);
+            imagesLoaded++;
+            checkAllImagesLoaded();
+        };
+
+        imagesToLoad.push(img);
+    });
+}
+
+// Comprueba si todas las imágenes han cargado
+function checkAllImagesLoaded() {
+    if (imagesLoaded === imagesToLoad.length) {
+        hideLoadingScreen();
+        createConstellations(); // Aquí generas las constelaciones cuando todo está listo
+    }
+}
+
+// Oculta la pantalla de carga
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.classList.add('hidden');
+}
+
+// Inicia la precarga de imágenes al cargar la página
+window.onload = () => {
+    preloadImages();
+};
+
+
+
 // Inicialización
 createStars();
 createConstellations();
