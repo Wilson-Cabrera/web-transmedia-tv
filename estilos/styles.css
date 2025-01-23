@@ -258,6 +258,7 @@ video {
 /* Efecto de desvanecimiento en el fondo */
 .footer {
     animation: fadeIn 2s ease-in;
+    animation-delay: 10s;
 }
 
 @keyframes fadeIn {
@@ -272,6 +273,7 @@ video {
 /* Efecto de desvanecimiento en el fondo */
 #title {
     animation: fadeIn 2s ease-in;
+    animation-delay: 10s;
 }
 
 @keyframes fadeIn {
@@ -284,6 +286,7 @@ video {
 }
 #subtitle {
     animation: fadeIn 2s ease-in;
+    animation-delay: 10s;
     padding: 20px;
 }
 
